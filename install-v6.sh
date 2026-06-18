@@ -35,13 +35,9 @@ BMAD_COMMANDS_DIR="${CLAUDE_DIR}/commands/bmad"
 REPO_URL="https://github.com/ThinhTP204/ba-skills-harness.git"
 CLONED_TMP=""
 
-# Khi chạy qua curl | bash, BASH_SOURCE không set → tạm tắt set -u để kiểm tra
-set +u
-_bash_source="${BASH_SOURCE[0]:-}"
-set -u
-
-if [ -n "$_bash_source" ] && [ -f "$_bash_source" ]; then
-    SCRIPT_DIR="$(cd "$(dirname "$_bash_source")" && pwd)"
+# $0 = path khi chạy local, $0 = "bash" khi chạy qua curl | bash
+if [ -f "$0" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 else
     CLONED_TMP="/tmp/ba-skills-harness-$$"
     echo "Đang tải repo về ${CLONED_TMP}..."
